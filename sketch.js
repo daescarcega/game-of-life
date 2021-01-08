@@ -2,6 +2,7 @@ let tablero;
 let columnas;
 let renglones;
 let celda_tamanio= 10;
+let generaciones = 0;
 
 function setup() {
   createCanvas(600, 400);
@@ -14,17 +15,23 @@ function setup() {
       //print(tablero[x][y]);
     }
   }
-  
+
+  generaciones = 0;
   //print(tablero);
-  
+
 }
 
 function draw() {
   background(220);
   pintaTablero();
   siguienteGeneracion();
-  
-  
+  generaciones++;
+  fill(0);
+  rect(width/2-30, height/2, 40 ,30);
+  fill(255);
+  text(generaciones, width/2-10, height/2+20);
+
+
 }
 
 function siguienteGeneracion() {
@@ -33,7 +40,7 @@ function siguienteGeneracion() {
       for(let y = 1; y < renglones-1; y+= 1){
          let celda = tablero[x][y];
          let vecinos = cuentaVecinos(x, y);
-        
+
          if(celda == 0 && vecinos == 3){
            tablero_siguiente[x][y] = 1;
          }else if(celda == 1 &&(vecinos > 3 || vecinos < 2)){
@@ -41,12 +48,12 @@ function siguienteGeneracion() {
          }else{
            tablero_siguiente[x][y] = celda;
          }
-         
+
       }
     }
-    
+
     tablero = tablero_siguiente;
-  
+
 }
 
 function cuentaVecinos(x, y){
@@ -60,8 +67,8 @@ function cuentaVecinos(x, y){
       suma_vecinos += tablero[x][y+1];
       suma_vecinos += tablero[x +1][y+1];
       return suma_vecinos;
-  
-  
+
+
 }
 
 function pintaTablero(){
@@ -74,7 +81,7 @@ function pintaTablero(){
         stroke(0);
         rect(posx, posy,celda_tamanio, celda_tamanio );
       }
-      
+
     }
   }
 }
@@ -82,12 +89,12 @@ function pintaTablero(){
 function creaTablero(cols, ren){
    let tab = new Array(cols);
    for(let i  = 0; i < tab.length; i = i + 1){
-     tab[i] = new Array(ren);    
+     tab[i] = new Array(ren);
   }
   return tab;
 }
-       
-       
-       
-       
+
+
+
+
        
